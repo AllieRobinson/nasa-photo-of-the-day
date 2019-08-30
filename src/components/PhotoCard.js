@@ -35,7 +35,7 @@ font-size: 1rem;
 
 const StyledH2 = styled.h2`
 font-family: monospace;
-font-size: 2rem;
+font-size: 1.8rem;
 `
 
 function PhotoCard(props) {
@@ -44,7 +44,10 @@ function PhotoCard(props) {
         <PhotoCardDiv>
             <WhiteDiv>
                 <StyledH2>{props.title}</StyledH2>
-                <ResponsiveImg src={props.url} /> 
+                <ResponsiveImg src={props.url} alt={props.media_type} /> 
+                <StyledP>
+                    Date: {props.date}
+                </StyledP>
                 <StyledP>
                     {props.explanation}
                 </StyledP>
