@@ -1,23 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import "./App.css";
 import PhotoCard from './components/PhotoCard';
+import styled from 'styled-components';
+
+const AppDiv = styled.div`
+display: flex;
+flex-flow: row wrap;
+align-items: center;
+justify-content: center;
+`
 
 function App() {
-  const [data, setData] = useState({}); 
+  const [photos, setPhotos] = useState([]); 
 
-  axios.get("https://api.nasa.gov/planetary/apod?api_key=f9e9i1Jhoy431QKH984SYBsYDdpA14D9wkfNK1a5")
-  .then(response => {
-    console.log(response.data);
-    setData(response.data);
-  })
+  useEffect(() => {
+    axios.get("https://henry-mock-nasa-api.herokuapp.com/api")
+    .then(response => {
+      console.log(response.data);
+      setPhotos(response.data);
+    })
+  }, []);
 
   return (
-    <div className="App">
-      <PhotoCard title={data.title} 
-                 url={data.url}
-                 explanation={data.explanation} />
-    </div>
+    <AppDiv className="App">
+      {photos.map(data => (
+        <PhotoCard title={data.title} 
+                   url={data.url}
+                   explanation={data.explanation} />
+      ))}
+    </AppDiv>
   );
 }
 
